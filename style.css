@@ -1,0 +1,866 @@
+/* ============================================
+   CINEMATIC PUZZLE EXPERIENCE - GLOBAL STYLES
+   ============================================ */
+
+/* ---- CUSTOM FONT ---- */
+@font-face {
+  font-family: 'Aylia';
+  src: url('./fonts/Aylia DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./fonts/custom-font.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- CSS VARIABLES / DESIGN TOKENS ---- */
+/* EDIT HERE: Adjust colors, animation timing */
+:root {
+  /* Colors */
+  --deep-space: #050A14;
+  --dark-surface: rgba(11, 22, 40, 0.6);
+  --accent-blue: #6B8CFF;
+  --text-primary: #E0E8FF;
+  --text-muted: #8A9BBF;
+  --glow-blue: rgba(107, 140, 255, 0.6);
+  --error-red: #FF4D4D;
+  --soft-white: rgba(255, 255, 255, 0.9);
+
+  /* Animation Timing */
+  --anim-slow: 3s;
+  --anim-medium: 1.5s;
+  --anim-fast: 0.5s;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --easing-dramatic: cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+/* ---- RESET & BASE ---- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'CustomFont', 'Cinzel', 'Georgia', serif;
+  background: var(--deep-space);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- SCENE 1: PUZZLE PAGE ---- */
+#puzzle-scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ---- BACKGROUND LAYERS ---- */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.bg-neptune {
+  /* EDIT HERE: Change Scene 1 background image */
+  background: url('./images/neptune_bg.jpg') center/cover no-repeat;
+  filter: blur(4px) brightness(0.5);
+  transform: scale(1.1);
+  animation: bgBreathe 20s ease-in-out infinite;
+}
+
+/* Vignette overlay */
+.vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Dark cinematic overlay */
+.dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.4);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ---- FLOATING FOG LAYERS ---- */
+.fog-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fog-1, .fog-2, .fog-3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+}
+
+.fog-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(107, 140, 255, 0.4), transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation: fogDrift1 25s ease-in-out infinite;
+}
+
+.fog-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(150, 180, 255, 0.3), transparent 70%);
+  bottom: -15%;
+  right: -10%;
+  animation: fogDrift2 30s ease-in-out infinite;
+}
+
+.fog-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(100, 160, 255, 0.25), transparent 70%);
+  top: 40%;
+  left: 50%;
+  animation: fogDrift3 20s ease-in-out infinite;
+}
+
+/* ---- GLOWING ORBS ---- */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.orb-1 {
+  width: 8px;
+  height: 8px;
+  background: rgba(107, 140, 255, 0.8);
+  box-shadow: 0 0 20px 5px rgba(107, 140, 255, 0.5);
+  top: 20%;
+  left: 15%;
+  animation: orbFloat1 15s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 12px;
+  height: 12px;
+  background: rgba(150, 180, 255, 0.7);
+  box-shadow: 0 0 30px 8px rgba(150, 180, 255, 0.4);
+  top: 60%;
+  right: 20%;
+  animation: orbFloat2 18s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 6px;
+  height: 6px;
+  background: rgba(180, 200, 255, 0.9);
+  box-shadow: 0 0 15px 3px rgba(180, 200, 255, 0.6);
+  bottom: 30%;
+  left: 40%;
+  animation: orbFloat3 12s ease-in-out infinite;
+}
+
+.orb-4 {
+  width: 10px;
+  height: 10px;
+  background: rgba(107, 140, 255, 0.6);
+  box-shadow: 0 0 25px 6px rgba(107, 140, 255, 0.3);
+  top: 35%;
+  left: 70%;
+  animation: orbFloat1 20s ease-in-out infinite reverse;
+}
+
+/* ---- PARTICLE CANVAS ---- */
+#embers-canvas {
+  position: fixed; /* Changed to fixed to ensure it stays in viewport always */
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ---- UI PANEL ---- */
+.ui-panel {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(11, 22, 40, 0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(107, 140, 255, 0.2);
+  border-radius: 20px;
+  padding: 24px 40px;
+  text-align: center;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: uiSlideIn 1.2s var(--easing-smooth) forwards;
+  opacity: 0;
+}
+
+.ui-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+
+.ui-subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: rgba(138, 155, 191, 0.6);
+  margin-bottom: 20px;
+}
+
+/* ---- PASSWORD SLOTS ---- */
+.slots-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.slot {
+  width: 44px;
+  height: 52px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: all 0.4s var(--easing-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.slot.filled {
+  border-style: solid;
+  border-color: var(--accent-blue);
+  background: rgba(107, 140, 255, 0.15);
+  box-shadow: 
+    0 0 20px rgba(107, 140, 255, 0.3),
+    inset 0 0 10px rgba(107, 140, 255, 0.1);
+  animation: slotPulse 0.6s var(--easing-bounce);
+}
+
+.slot-character {
+  animation: charSnapIn 0.5s var(--easing-bounce) forwards;
+}
+
+/* ---- SCATTERED CHARACTERS ---- */
+#scattered-chars {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scatter-char {
+  position: absolute;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  pointer-events: all;
+  user-select: none;
+  transition: color 0.3s, text-shadow 0.3s;
+  animation: charFloat linear infinite;
+  will-change: transform;
+}
+
+/* EDIT HERE: Adjust the subtle glow on correct characters */
+.scatter-char.correct {
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.9rem; /* Slightly bigger */
+  font-weight: 600;
+  text-shadow: 
+    0 0 15px rgba(107, 140, 255, 0.6),
+    0 0 30px rgba(107, 140, 255, 0.4);
+  animation: charFloat linear infinite, correctGlow 3s ease-in-out infinite;
+}
+
+.scatter-char:hover {
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  transform: scale(1.2);
+}
+
+.scatter-char.collecting {
+  pointer-events: none;
+  z-index: 200;
+  transition: none;
+}
+
+.scatter-char.wrong-click {
+  animation: errorDrop 0.6s var(--easing-smooth) forwards;
+  pointer-events: none;
+}
+
+/* ---- PARTICLE BURST EFFECTS ---- */
+.particle-container {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+}
+
+.burst-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 6px 2px rgba(107, 140, 255, 0.6);
+  pointer-events: none;
+}
+
+/* ---- TRANSITION OVERLAY ---- */
+#transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s var(--easing-dramatic);
+}
+
+#transition-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ---- HINT TEXT ---- */
+.hint-text {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: rgba(138, 155, 191, 0.4);
+  text-transform: uppercase;
+  animation: hintFade 4s ease-in-out infinite;
+}
+
+/* ============================================
+   SCENE 2: MESSAGE PAGE
+   ============================================ */
+
+#message-scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-message {
+  /* EDIT HERE: Change Scene 2 background image */
+  background: url('./images/bg2.jpg') center/cover no-repeat;
+  filter: blur(2px) brightness(0.5);
+  transform: scale(1.05);
+  animation: bgBreatheSlow 25s ease-in-out infinite;
+}
+
+/* Cinematic bars */
+.cine-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 8vh;
+  background: #000;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.cine-bar-top {
+  top: 0;
+  animation: barSlideDown 1s var(--easing-smooth) 0.5s both;
+}
+
+.cine-bar-bottom {
+  bottom: 0;
+  animation: barSlideUp 1s var(--easing-smooth) 0.5s both;
+}
+
+/* Message container */
+.message-container {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  padding: 40px;
+  text-align: center;
+}
+
+.message-text {
+  font-size: 2.2rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 
+    0 0 30px rgba(255, 255, 255, 0.3),
+    0 0 60px rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.02em;
+  font-style: italic;
+  opacity: 0;
+}
+
+.message-line {
+  display: block;
+  margin-bottom: 0.3em;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ---- LIGHT BLOOM OVERLAY ---- */
+.light-bloom {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 50%, rgba(107, 140, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 50%, rgba(150, 180, 255, 0.06) 0%, transparent 50%);
+  z-index: 2;
+  pointer-events: none;
+  animation: bloomPulse 8s ease-in-out infinite;
+}
+
+/* ---- MESSAGE PAGE FOG ---- */
+.message-fog .fog-1 {
+  background: radial-gradient(circle, rgba(107, 140, 255, 0.2), transparent 70%);
+  opacity: 0.2;
+  animation: fogDrift1 35s ease-in-out infinite;
+}
+
+.message-fog .fog-2 {
+  background: radial-gradient(circle, rgba(200, 180, 255, 0.15), transparent 70%);
+  opacity: 0.15;
+  animation: fogDrift2 40s ease-in-out infinite;
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+/* ---- Background animations ---- */
+@keyframes bgBreathe {
+  0%, 100% { transform: scale(1.1) translate(0, 0); }
+  50% { transform: scale(1.15) translate(-1%, -1%); }
+}
+
+@keyframes bgBreatheSlow {
+  0%, 100% { transform: scale(1.05) translate(0, 0); }
+  50% { transform: scale(1.1) translate(-0.5%, -0.5%); }
+}
+
+/* ---- Fog drift animations ---- */
+@keyframes fogDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, 8%) scale(1.1); }
+  66% { transform: translate(-5%, 12%) scale(0.95); }
+}
+
+@keyframes fogDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-8%, -6%) scale(1.05); }
+  66% { transform: translate(6%, -10%) scale(1.1); }
+}
+
+@keyframes fogDrift3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-45%, -55%) scale(1.15); }
+}
+
+/* ---- Orb float animations ---- */
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -40px); }
+  50% { transform: translate(60px, -20px); }
+  75% { transform: translate(20px, 30px); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-40px, 30px); }
+  50% { transform: translate(-20px, 60px); }
+  75% { transform: translate(30px, 20px); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(25px, 35px); }
+  66% { transform: translate(-35px, 15px); }
+}
+
+/* ---- Character animations ---- */
+@keyframes charFloat {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(8px, -12px) rotate(2deg); }
+  50% { transform: translate(-6px, -8px) rotate(-1deg); }
+  75% { transform: translate(10px, 6px) rotate(1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes correctGlow {
+  0%, 100% { 
+    text-shadow: 
+      0 0 15px rgba(107, 140, 255, 0.6),
+      0 0 30px rgba(107, 140, 255, 0.4);
+  }
+  50% { 
+    text-shadow: 
+      0 0 25px rgba(107, 140, 255, 0.9),
+      0 0 50px rgba(107, 140, 255, 0.7);
+  }
+}
+
+@keyframes charSnapIn {
+  0% { 
+    transform: scale(2) rotate(15deg); 
+    opacity: 0;
+    filter: blur(4px);
+  }
+  60% { 
+    transform: scale(0.9) rotate(-5deg); 
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* ---- Error animations ---- */
+@keyframes errorDrop {
+  0% { 
+    transform: translateY(0); 
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+  }
+  20% { 
+    transform: translateX(-5px); 
+    color: var(--error-red);
+    text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+  }
+  40% { 
+    transform: translateX(5px); 
+    color: var(--error-red);
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
+  }
+  60% { 
+    transform: translateX(-3px) translateY(10px); 
+    color: var(--error-red);
+    opacity: 0.7;
+  }
+  80% { 
+    transform: translateX(2px) translateY(20px); 
+    color: var(--error-red);
+    opacity: 0.3;
+  }
+  100% { 
+    transform: translateY(30px); 
+    opacity: 0;
+    color: var(--error-red);
+  }
+}
+
+@keyframes slotPulse {
+  0% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 rgba(107, 140, 255, 0);
+  }
+  50% { 
+    transform: scale(1.15); 
+    box-shadow: 0 0 30px rgba(107, 140, 255, 0.5);
+  }
+  100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 20px rgba(107, 140, 255, 0.3);
+  }
+}
+
+@keyframes errorShakeUI {
+  0% { transform: translateX(-50%) translateY(0); }
+  25% { transform: translateX(calc(-50% - 10px)) translateY(0); border-color: var(--error-red); }
+  50% { transform: translateX(calc(-50% + 10px)) translateY(0); }
+  75% { transform: translateX(calc(-50% - 10px)) translateY(0); border-color: var(--error-red); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+.error-shake {
+  animation: errorShakeUI 0.4s ease-in-out !important;
+  box-shadow: 0 0 30px rgba(255, 77, 77, 0.4) !important;
+}
+
+/* ---- UI animations ---- */
+@keyframes uiSlideIn {
+  0% { 
+    transform: translateX(-50%) translateY(-40px); 
+    opacity: 0;
+    filter: blur(8px);
+  }
+  100% { 
+    transform: translateX(-50%) translateY(0); 
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes hintFade {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* ---- Cinematic bar animations ---- */
+@keyframes barSlideDown {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes barSlideUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+/* ---- Light bloom ---- */
+@keyframes bloomPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ---- Entrance animations for message page ---- */
+@keyframes messageFadeIn {
+  0% { 
+    opacity: 0; 
+    transform: translateY(25px);
+    filter: blur(6px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes sceneFadeIn {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ---- Success pulse for puzzle completion ---- */
+@keyframes successFlash {
+  0% { box-shadow: 0 0 0 0 rgba(107, 140, 255, 0); }
+  50% { box-shadow: 0 0 60px 20px rgba(107, 140, 255, 0.6); }
+  100% { box-shadow: 0 0 0 0 rgba(107, 140, 255, 0); }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .ui-panel {
+    padding: 18px 24px;
+    top: 20px;
+  }
+
+  .ui-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+  }
+
+  .slot {
+    width: 36px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .slots-container {
+    gap: 6px;
+  }
+
+  .scatter-char {
+    font-size: 1.3rem;
+  }
+
+  .message-text {
+    font-size: 1.4rem;
+    line-height: 1.7;
+  }
+
+  .message-container {
+    padding: 20px;
+    max-width: 95%;
+  }
+
+  .cine-bar {
+    height: 6vh;
+  }
+
+  .hint-text {
+    font-size: 0.6rem;
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .slot {
+    width: 32px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .ui-panel {
+    padding: 14px 18px;
+  }
+}
+
+/* ============================================
+   RESTORED SCENE 2 STYLES (from previous work)
+   ============================================ */
+
+.second-page .bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    filter: blur(4px) brightness(0.65); /* Darker so text and sparks show clearly */
+    transform: scale(1.1);
+    animation: slowBreathe 15s infinite alternate ease-in-out;
+    will-change: transform;
+    z-index: 1; /* Fix: Positive z-index to stay above body background */
+}
+
+.second-page .overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%); /* Slightly darker edges */
+    z-index: 2; /* Fix */
+    pointer-events: none;
+}
+
+@keyframes slowBreathe {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.15); }
+}
+
+.cinematic-bar {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 12vh;
+    background: #000;
+    z-index: 20; /* High z-index */
+    transition: transform 3s ease;
+}
+
+.cinematic-bar.top { top: 0; transform: translateY(-100%); }
+.cinematic-bar.bottom { bottom: 0; transform: translateY(100%); }
+.second-page.loaded .cinematic-bar { transform: translateY(0); }
+
+.center-container {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+#message-text {
+    font-family: 'Aylia', 'Cinzel', serif; /* Apply custom font */
+    font-size: 2.2rem;
+    text-align: center;
+    max-width: 900px;
+    line-height: 1.8;
+    letter-spacing: 2px;
+    z-index: 10;
+    color: var(--text-primary);
+}
+
+.smooth-char {
+    opacity: 0;
+    display: inline-block;
+    transition: opacity 2s ease, text-shadow 2s ease, transform 2s ease;
+    transform: translateY(10px) scale(0.95);
+}
+
+.smooth-char.visible {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4);
+    transform: translateY(0) scale(1);
+}
+
+.dust {
+    position: fixed;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatDust 12s infinite linear;
+    z-index: 3; /* Above overlay */
+    pointer-events: none;
+}
+
+@keyframes floatDust {
+    0% { transform: translateY(10vh) scale(0.5); opacity: 0; }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    #message-text {
+        font-size: 1.2rem;
+        padding: 0 20px;
+        line-height: 1.6;
+        letter-spacing: 1px;
+    }
+    .smooth-char.visible {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    .cinematic-bar { height: 10vh; }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Puzzle</title>
+  <!-- 
+    ============================================
+    CINEMATIC PUZZLE EXPERIENCE - SCENE 1
+    ============================================
+  -->
+  <link rel="stylesheet" href="./style.css">
+  <!-- Google Fonts fallback for elegant typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ===== SCENE 1: THE PUZZLE ===== -->
+  <div id="puzzle-scene">
+
+    <!-- Background Layers -->
+    <div class="bg-layer bg-neptune"></div>
+    <div class="vignette-overlay"></div>
+    <div class="dark-overlay"></div>
+
+    <!-- Floating Fog Layers -->
+    <div class="fog-layer">
+      <div class="fog-1"></div>
+      <div class="fog-2"></div>
+      <div class="fog-3"></div>
+    </div>
+
+    <!-- Glowing Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+
+    <!-- Particle Canvas (Embers/Dust) -->
+    <canvas id="embers-canvas"></canvas>
+
+    <!-- UI Panel with Password Slots -->
+    <div class="ui-panel" id="ui-panel">
+      <div class="ui-title">Find the Code</div>
+      <div class="ui-subtitle">Look closely...</div>
+      <div class="slots-container" id="slots-container">
+        <!-- 6 slots for password: J u l y 1 1 -->
+        <div class="slot" data-index="0"></div>
+        <div class="slot" data-index="1"></div>
+        <div class="slot" data-index="2"></div>
+        <div class="slot" data-index="3"></div>
+        <div class="slot" data-index="4"></div>
+        <div class="slot" data-index="5"></div>
+      </div>
+    </div>
+
+    <!-- Scattered Characters Container -->
+    <div id="scattered-chars"></div>
+
+    <!-- Particle Burst Container -->
+    <div class="particle-container" id="particle-container"></div>
+
+    <!-- Hint Text -->
+    <div class="hint-text">Click the hidden characters</div>
+
+  </div>
+
+  <!-- Transition Overlay (Black screen for scene transition) -->
+  <div id="transition-overlay"></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
